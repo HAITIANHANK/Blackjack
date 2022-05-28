@@ -8,6 +8,7 @@
     <SpaProxyServerUrl>http://localhost:44489</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
+	<RootNamespace>Blackjack.Web.App.WebService</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,10 @@
     <None Remove="ClientApp\.angular\cache\babel-webpack\bac5038ccd52f3a5efdc9b151fb664b1.json" />
     <None Remove="ClientApp\.angular\cache\babel-webpack\c91ebbd6d28111f2ae9d90ec783fc3b3.json" />
     <None Remove="ClientApp\.angular\cache\babel-webpack\cfc816df16af5044d9379dd311a503cc.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
