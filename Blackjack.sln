@@ -7,6 +7,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebService", "WebService", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blackjack.WebService", "Source\WebService\Blackjack.WebService\Blackjack.WebService.csproj", "{435F4949-A0E4-4CA4-A5DB-D9A60B00BFFB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{A0C72C69-35B7-4895-8558-4E60A71C2479}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blackjack.Adapters", "Source\Adapters\Blackjack.Adapters\Blackjack.Adapters.csproj", "{8739C31E-23BA-4336-8BDF-8CB9571E4392}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Facades", "Facades", "{D06F0995-9BC0-4A35-B130-7ECDEE2CD86C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack.Facades", "Source\Facades\Blackjack.Facades\Blackjack.Facades.csproj", "{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2AE370F-72FE-44BD-80FD-B1DD62631B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack.Data", "Source\Data\Blackjack.Data\Blackjack.Data.csproj", "{F078C0BD-E3DA-4B03-A855-27827809D6F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +29,27 @@ Global
 		{435F4949-A0E4-4CA4-A5DB-D9A60B00BFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{435F4949-A0E4-4CA4-A5DB-D9A60B00BFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{435F4949-A0E4-4CA4-A5DB-D9A60B00BFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8739C31E-23BA-4336-8BDF-8CB9571E4392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8739C31E-23BA-4336-8BDF-8CB9571E4392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8739C31E-23BA-4336-8BDF-8CB9571E4392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8739C31E-23BA-4336-8BDF-8CB9571E4392}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F078C0BD-E3DA-4B03-A855-27827809D6F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F078C0BD-E3DA-4B03-A855-27827809D6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F078C0BD-E3DA-4B03-A855-27827809D6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F078C0BD-E3DA-4B03-A855-27827809D6F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{435F4949-A0E4-4CA4-A5DB-D9A60B00BFFB} = {0C4355E6-5A56-458E-8025-33353E358C77}
+		{8739C31E-23BA-4336-8BDF-8CB9571E4392} = {A0C72C69-35B7-4895-8558-4E60A71C2479}
+		{012ECD44-90E7-4ABD-A47B-2CABCEFA3AE3} = {D06F0995-9BC0-4A35-B130-7ECDEE2CD86C}
+		{F078C0BD-E3DA-4B03-A855-27827809D6F4} = {F2AE370F-72FE-44BD-80FD-B1DD62631B97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {574551D1-36C6-475F-B8BB-3B1F0C5CE9EF}
