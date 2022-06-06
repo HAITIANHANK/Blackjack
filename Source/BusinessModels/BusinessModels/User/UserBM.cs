@@ -15,7 +15,7 @@ namespace Blackjack.Web.App.BusinessModels.User
         /// <summary>
         /// The unique username of the user.
         /// </summary>
-        public string UserName;
+        public string Username;
         /// <summary>
         /// The current balance of the user.
         /// </summary>

@@ -15,7 +15,7 @@ namespace Blackjack.Web.App.Data.Entities
         /// <summary>
         /// The unique username of the user.
         /// </summary>
-        public string UserName;
+        public string Username;
         /// <summary>
         /// The Soundex representation of the user.
         /// Used for quick index searches.
