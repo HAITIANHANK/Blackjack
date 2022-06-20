@@ -24,4 +24,10 @@ public class UserController : Controller
         await _userAdapter.CreateUser(username);
         return Ok();
     }
+
+    [HttpGet]
+    public async Task<UserBM> GetUser(string username)
+    {
+        await _userAdapter.GetUser(username);
+    }
 }

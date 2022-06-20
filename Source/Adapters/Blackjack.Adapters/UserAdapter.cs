@@ -11,6 +11,14 @@ public interface IUserAdapter
     /// <param name="username"></param>
     /// <returns></returns>
     Task CreateUser(string username);
+
+    /// <summary>
+    /// Retrieves a user from the Users table. Returns null if
+    /// the user does not exist.
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    Task<UserBM> GetUser(string username);
 }
 /// <inheritdoc cref="IUserAdapter"/>
 public class UserAdapter : IUserAdapter
@@ -29,5 +37,10 @@ public class UserAdapter : IUserAdapter
         {
             await _userFacade.CreateUser(username);
         }
+    }
+
+    public async Task<UserBM> GetUser(string username)
+    {
+        await _userFacade.GetUser(username);
     }
 }
