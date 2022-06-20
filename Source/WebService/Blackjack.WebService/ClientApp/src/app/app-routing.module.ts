@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlayGameComponent } from './components/play-game-page/play-game-page.component';
 
 const routes: Route[] = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'play', component: PlayGameComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,18 +1,20 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutComponent } from '../shared/components/layout.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlayGameComponent } from './components/play-game-page/play-game-page.component';
 
 
 @NgModule({
   declarations: [
+    PlayGameComponent,
     LayoutComponent,
-    DashboardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]
