@@ -1,4 +1,4 @@
-CREATE PROCEDURE [user].[user_usp_INSERT_Users]
+CREATE PROCEDURE [user].[usp_INSERT_User]
 	@Username varchar(50),
 	@UserSoundex varchar(4),
 	@Balance int

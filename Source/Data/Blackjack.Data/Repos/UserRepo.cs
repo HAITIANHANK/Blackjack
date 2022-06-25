@@ -12,7 +12,7 @@ public interface IUserRepo
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
-    Task CreateUser(string username);
+    Task CreateUser(UserEntity user);
 
     /// <summary>
     /// Retrieves a user from the Users table. Returns null if
@@ -20,7 +20,7 @@ public interface IUserRepo
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
-    Task<UserEntity> GetUser(string username);
+    Task<List<UserEntity>> GetUsersBySoundex(string soundex);
 }
 
 /// <inheritdoc cref="IUserRepo"/>
@@ -30,21 +30,49 @@ public class UserRepo : BaseRepo, IUserRepo
     {
     }
 
-    public async Task CreateUser(string username)
+    public async Task CreateUser(UserEntity user)
     {
-        List<SqlParameter> parameters = new List<SqlParameter>();
-        await base.Create(StoredProcedures.Test, parameters);
+        List<SqlParameter> parameters = new List<SqlParameter>()
+        {
+            new SqlParameter()
+            {
+                ParameterName = $"@{nameof(user.Username)}",
+                SqlDbType = SqlDbType.VarChar,
+                Value = user.Username
+            },
+            new SqlParameter()
+            {
+                ParameterName = $"@{nameof(user.UserSoundex)}",
+                SqlDbType = SqlDbType.VarChar,
+                Value = user.UserSoundex
+            },
+            new SqlParameter()
+            {
+                ParameterName = $"@{nameof(user.Balance)}",
+                SqlDbType = SqlDbType.Int,
+                Value = user.Balance
+            }
+        };
+        await base.Create(StoredProcedures.CreateUser, parameters);
     }
 
-    public async Task<UserEntity> GetUser(string username)
+    public async Task<List<UserEntity>> GetUsersBySoundex(string soundex)
     {
-        List<SqlParameter> parameters = new List<SqlParameter>();
+        List<SqlParameter> parameters = new List<SqlParameter>()
+        {
+            new SqlParameter()
+            {
+                ParameterName = $"@{nameof(UserEntity.UserSoundex)}",
+                SqlDbType = SqlDbType.VarChar,
+                Value = soundex
+            }
+        };
 
-        DataTable queryData = await base.Get(StoredProcedures.Test, parameters);
+        DataTable queryData = await base.Get(StoredProcedures.GetUser, parameters);
 
         List<UserEntity> userEntities = CreateUserEntity(queryData);
 
-        return userEntities.SingleOrDefault();
+        return userEntities;
     }
     private List<UserEntity> CreateUserEntity(DataTable userDataTable)
     {
@@ -59,7 +87,7 @@ public class UserRepo : BaseRepo, IUserRepo
             {
                 UserID = row.Field<int>(nameof(UserEntity.UserID)),
                 Username = row.Field<string>(nameof(UserEntity.Username)),
-                Soundex = row.Field<string>(nameof(UserEntity.Soundex)),
+                UserSoundex = row.Field<string>(nameof(UserEntity.UserSoundex)),
                 Balance = row.Field<int>(nameof(UserEntity.Balance))
             };
             userEntities.Add(entity);
@@ -68,7 +96,8 @@ public class UserRepo : BaseRepo, IUserRepo
     }
     private struct StoredProcedures
     {
-        public const string Test = "Test";
+        public const string CreateUser = "user.usp_INSERT_User";
+        public const string GetUser = "user.usp_SELECT_Users_BySoundex";
     }
 }
 

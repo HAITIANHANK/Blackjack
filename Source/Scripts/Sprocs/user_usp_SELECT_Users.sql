@@ -1,6 +1,5 @@
-CREATE PROCEDURE [user].[user_usp_SELECT_Users]
-	@UserSoundex varchar(4),
-	@UserID int
+CREATE PROCEDURE [user].[usp_SELECT_Users_BySoundex]
+	@UserSoundex varchar(4)
 AS
 BEGIN
 
@@ -12,6 +11,5 @@ BEGIN
 	FROM
 		Users
 	WHERE
-		@UserSoundex = UserSoundex AND
-		@UserID = UserID
+		UserSoundex = @UserSoundex
 END
