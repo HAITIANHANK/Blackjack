@@ -8,7 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\BusinessEntities\BusinessEntities\Blackjack.BusinessEntities.csproj" />
 	  <ProjectReference Include="..\..\Data\Blackjack.Data\Blackjack.Data.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\Blackjack.Infrastructure\Blackjack.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

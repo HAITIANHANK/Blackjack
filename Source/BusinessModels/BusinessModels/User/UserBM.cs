@@ -11,14 +11,14 @@ namespace Blackjack.Web.App.BusinessModels.User
         /// <summary>
         /// The ID number of the user.
         /// </summary>
-        public int UserID;
+        public int UserID { get; set; }
         /// <summary>
         /// The unique username of the user.
         /// </summary>
-        public string Username;
+        public string Username { get; set; }
         /// <summary>
         /// The current balance of the user.
         /// </summary>
-        public int Balance;
+        public int Balance { get; set; }
     }
 }

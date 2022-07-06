@@ -20,7 +20,7 @@ namespace Blackjack.Web.App.Data.Entities
         /// The Soundex representation of the user.
         /// Used for quick index searches.
         /// </summary>
-        public string Soundex;
+        public string UserSoundex;
         /// <summary>
         /// The current balance of the user.
         /// </summary>
