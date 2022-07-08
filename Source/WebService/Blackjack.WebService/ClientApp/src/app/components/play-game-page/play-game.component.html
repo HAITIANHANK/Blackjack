@@ -1,0 +1,10 @@
+<label id="balance">Your Balance: {{player.balance}}</label>
+<div id="wagerOptions">
+  <button id="one" (click)="_addToWager(1)">$1</button>
+  <button id="five" (click)="_addToWager(5)">$5</button>
+  <button id="twentyFive" (click)="_addToWager(25)">$25</button>
+  <button id="oneHundred" (click)="_addToWager(100)">$100</button>
+  <button id="fiveHundred" (click)="_addToWager(500)">$500</button>
+  <button id="clearWager" (click)="_clearWager()">Clear Wager</button>
+</div>
+<label id="wager">{{wager}}</label>
