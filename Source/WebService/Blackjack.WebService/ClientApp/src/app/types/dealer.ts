@@ -4,20 +4,20 @@ export class Dealer extends Gamer {
     /**
      * Determines if the dealer is playing and whether his cards are revealed 
      */
-    public dealersTurn: boolean = false;
+    public isDealerTurn: boolean = false;
     
     /**
      * Displays the name, shown cards, and score of the player 
      */
     public getStatus(): string {
-        if (!this.dealersTurn)
+        if (!this.isDealerTurn)
             return `The dealer is showing ${this._hand[0]}`
         else
             return super.printStatus("The dealer");
     }
 
     public override reset(): void {
-        this.dealersTurn = false;
+        this.isDealerTurn = false;
         super.reset();
     }
 

@@ -3,8 +3,8 @@ import { UserApi } from "../../../shared/api/user.api";
 import { UserDto } from "../../../shared/dtos/user.dto";
 
 @Component({
-  templateUrl: './play-game-page.component.html',
-  styleUrls: ['./play-game-page.component.html']
+  templateUrl: './play-game.component.html',
+  styleUrls: ['./play-game.component.scss']
 })
 export class PlayGameComponent implements OnInit {
 

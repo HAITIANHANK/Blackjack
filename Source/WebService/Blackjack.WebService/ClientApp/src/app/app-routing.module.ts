@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { PlayGameComponent } from './components/play-game-page/play-game-page.component';
+import { PlayGameComponent } from './components/play-game-page/play-game.component';
 
 const routes: Route[] = [
   { path: 'play', component: PlayGameComponent }

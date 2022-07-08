@@ -12,7 +12,7 @@ export class UserApi {
   }
 
   /**
-   * Retrieves a user from the database
+   * Retrieves a user from the server by username
    */
   public async getUser(username: string): Promise<UserDto> {
     return await this._http.get<UserDto>(`User/GetUser?username=${username}`).toPromise();

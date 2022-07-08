@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutComponent } from '../shared/components/layout.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PlayGameComponent } from './components/play-game-page/play-game-page.component';
+import { PlayGameComponent } from './components/play-game-page/play-game.component';
 
 
 @NgModule({
