@@ -1,18 +1,20 @@
-<label id="balance"></label>
+<label id="balance">Your Balance: {{player.balance}}</label>
 <div id="wagerOptions">
   <button id="one" (click)="_addToWager(1)">$1</button>
   <button id="five" (click)="_addToWager(5)">$5</button>
   <button id="twentyFive" (click)="_addToWager(25)">$25</button>
   <button id="oneHundred" (click)="_addToWager(100)">$100</button>
   <button id="fiveHundred" (click)="_addToWager(500)">$500</button>
-  <button id="clearWager" (click)="_clearWager">Clear Wager</button>
+  <button id="clearWager" (click)="_clearWager()">Clear Wager</button>
 </div>
-<label id="wager"></label>
+<label id="wager">{{wager}}</label>
+<!--
 <button id="playBtn" (click)="_playClick()">Play!</button>
 <label id="playerHand"></label>
 <label id="dealerHand"></label>
 <div id="playOptions" class="hidden">
   <button id="hitBtn" (click)="_hit">Hit</button>
-  <button id="stayBtn" (click="_stay")>Stay</button>
+  <button id="stayBtn" (click="_stay" )>Stay</button>
 </div>
 <p>Blackjack payouts are 1:1</p>
+-->

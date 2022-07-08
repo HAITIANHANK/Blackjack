@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UserApi } from "../../../shared/api/user.api";
 import { UserDto } from "../../../shared/dtos/user.dto";
 
@@ -6,7 +6,7 @@ import { UserDto } from "../../../shared/dtos/user.dto";
   templateUrl: './play-game-page.component.html',
   styleUrls: ['./play-game-page.component.html']
 })
-export class PlayGameComponent {
+export class PlayGameComponent implements OnInit {
 
   /**
    * The UserDto object containing the logged in player's data
@@ -40,7 +40,7 @@ export class PlayGameComponent {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.player = await this._userApi.getUser('Test');
+    this.player = await this._userApi.getUser('test');
   }
 
 
