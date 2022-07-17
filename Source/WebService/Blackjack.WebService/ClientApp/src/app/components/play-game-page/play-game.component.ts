@@ -19,41 +19,49 @@ export class PlayGameComponent implements OnInit {
    * Reference to hit button to add cards to the player's hand. 
    */
   public hitBtnEl: HTMLButtonElement = document.getElementById('hitBtn') as HTMLButtonElement;
+  //public hitBtnEl: HTMLButtonElement = document.getElementById('hitBtn') as HTMLButtonElement;
 
   /**
    * Reference to stay button to signal the player is not taking cards. 
    */
   public stayBtnEl: HTMLButtonElement = document.getElementById('stayBtn') as HTMLButtonElement;
+  //public stayBtnEl: HTMLButtonElement = document.getElementById('stayBtn') as HTMLButtonElement;
 
   /**
    * Reference to play again button to restart the game. 
    */
   public playAgainButtonEl: HTMLButtonElement = document.getElementById('playAgain') as HTMLButtonElement;
+  //public playAgainButtonEl: HTMLButtonElement = document.getElementById('playAgain') as HTMLButtonElement;
 
   /**
    * Reference to the label displaying the card information of the dealer. 
    */
   public houseHandLabelEl: HTMLLabelElement = document.getElementById('houseHand') as HTMLLabelElement;
+  //public houseHandLabelEl: HTMLLabelElement = document.getElementById('houseHand') as HTMLLabelElement;
 
   /**
    * Reference to the label displaying the card information of the player. 
    */
   public playerHandLabelEl: HTMLLabelElement = document.getElementById('playerHand') as HTMLLabelElement;
+  //public playerHandLabelEl: HTMLLabelElement = document.getElementById('playerHand') as HTMLLabelElement;
 
   /**
    * Reference to the label asking the player their next move as well as the outcome of the game.
    */
   public nextMoveLabelEl: HTMLLabelElement = document.getElementById('nextMove') as HTMLLabelElement;
+  //public nextMoveLabelEl: HTMLLabelElement = document.getElementById('nextMove') as HTMLLabelElement;
 
   /**
   * Reference to the div containing all possible wager buttons
   */
   public playAreaDivEl: HTMLDivElement = document.getElementById('playArea') as HTMLDivElement;
+  //public playAreaDivEl: HTMLDivElement = document.getElementById('playArea') as HTMLDivElement;
 
   /**
   * Reference to the div containing all possible wager buttons
   */
   public wagerOptionsDivEl: HTMLDivElement = document.getElementById('wagerOptions') as HTMLDivElement;
+  //public wagerOptionsDivEl: HTMLDivElement = document.getElementById('wagerOptions') as HTMLDivElement;
 
   /**
    * The UserDto object containing the logged in user's data
@@ -63,17 +71,17 @@ export class PlayGameComponent implements OnInit {
   /**
    * Player object containing the player's information. 
    */
-  public player: Player;
+  public player: Player = new Player();
 
   /**
    * Dealer object containing the dealer's information.
    */
-  public dealer: Dealer;
+  public dealer: Dealer = new Dealer();
 
   /**
    * Deck object containing all possible cards that can still be drawn. 
    */
-  public deck: Deck;
+  public deck: Deck = new Deck();
 
   /**
    * The amount the player is betting on a single hand of blackjack
@@ -114,12 +122,14 @@ export class PlayGameComponent implements OnInit {
     while (isNaN(decks) || decks < 1) {
       decks = parseInt(prompt(`${decks} is not a valid amount, please try again.`, '1'));
     }
+    console.log('in play 1');
     this.deck.shuffle(decks);
     this.player.updateHand(this.deck.deal(2));
     this.dealer.updateHand(this.deck.deal(2));
     this.playBtnEl.classList.add('hidden');
     this.wagerOptionsDivEl.classList.add('hidden');
     this.playerHandLabelEl.innerText = this.player.getStatus();
+    console.log('in play');
 
     /*Checks for blackjacks. If anyone does, game automatically ends.*/
     if (this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
@@ -165,7 +175,7 @@ export class PlayGameComponent implements OnInit {
    */
   public stay(): void {
     this.revealDealer();
-    const intervalID: NodeJS.Timeout = setInterval(() => {
+    const intervalID = setInterval(() => {
       if (this.dealer.score > 17 || (this.dealer.score === 17 && !this.dealer.hasSoft17()) || this.dealer.hasBusted) {
         clearInterval(intervalID);
         if (this.dealer.score < this.player.score || this.dealer.hasBusted)

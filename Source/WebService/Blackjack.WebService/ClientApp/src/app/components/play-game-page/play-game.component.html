@@ -1,4 +1,4 @@
-<label id="balance">Your Balance: {{player.balance}}</label>
+<label id="balance">Your Balance: {{user.balance}}</label>
 <div id="wagerOptions">
   <button id="one" (click)="_addToWager(1)">$1</button>
   <button id="five" (click)="_addToWager(5)">$5</button>
@@ -8,12 +8,12 @@
   <button id="clearWager" (click)="_clearWager()">Clear Wager</button>
 </div>
 <label id="wager">{{wager}}</label>
-<button id="playBtn">Play!</button>
+<button id="playBtn" (click)="startGame()">Play!</button>
 <div id="playArea" class="hidden">
   <label id="playerHand"></label>
   <label id="houseHand"></label>
   <label id="nextMove"></label>
-  <button id="hitBtn">Hit me!</button>
-  <button id="stayBtn">Stay.</button>
-  <button id="playAgain" class="hidden">Play Again?</button>
+  <button id="hitBtn" (click)="hit()">Hit me!</button>
+  <button id="stayBtn" (click)="stay()">Stay.</button>
+  <button id="playAgain" class="hidden" (click)="playAgain()">Play Again?</button>
 </div>
