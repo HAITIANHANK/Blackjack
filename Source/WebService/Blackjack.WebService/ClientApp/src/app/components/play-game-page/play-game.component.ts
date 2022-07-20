@@ -10,58 +10,6 @@ import { Player } from "../../types/player";
   styleUrls: ['./play-game.component.scss']
 })
 export class PlayGameComponent implements OnInit {
-  /**
-  * Reference to play button used to start a game.
-  */
-  public playBtnEl: HTMLButtonElement = document.getElementById('playBtn') as HTMLButtonElement;
-
-  /**
-   * Reference to hit button to add cards to the player's hand. 
-   */
-  public hitBtnEl: HTMLButtonElement = document.getElementById('hitBtn') as HTMLButtonElement;
-  //public hitBtnEl: HTMLButtonElement = document.getElementById('hitBtn') as HTMLButtonElement;
-
-  /**
-   * Reference to stay button to signal the player is not taking cards. 
-   */
-  public stayBtnEl: HTMLButtonElement = document.getElementById('stayBtn') as HTMLButtonElement;
-  //public stayBtnEl: HTMLButtonElement = document.getElementById('stayBtn') as HTMLButtonElement;
-
-  /**
-   * Reference to play again button to restart the game. 
-   */
-  public playAgainButtonEl: HTMLButtonElement = document.getElementById('playAgain') as HTMLButtonElement;
-  //public playAgainButtonEl: HTMLButtonElement = document.getElementById('playAgain') as HTMLButtonElement;
-
-  /**
-   * Reference to the label displaying the card information of the dealer. 
-   */
-  public houseHandLabelEl: HTMLLabelElement = document.getElementById('houseHand') as HTMLLabelElement;
-  //public houseHandLabelEl: HTMLLabelElement = document.getElementById('houseHand') as HTMLLabelElement;
-
-  /**
-   * Reference to the label displaying the card information of the player. 
-   */
-  public playerHandLabelEl: HTMLLabelElement = document.getElementById('playerHand') as HTMLLabelElement;
-  //public playerHandLabelEl: HTMLLabelElement = document.getElementById('playerHand') as HTMLLabelElement;
-
-  /**
-   * Reference to the label asking the player their next move as well as the outcome of the game.
-   */
-  public nextMoveLabelEl: HTMLLabelElement = document.getElementById('nextMove') as HTMLLabelElement;
-  //public nextMoveLabelEl: HTMLLabelElement = document.getElementById('nextMove') as HTMLLabelElement;
-
-  /**
-  * Reference to the div containing all possible wager buttons
-  */
-  public playAreaDivEl: HTMLDivElement = document.getElementById('playArea') as HTMLDivElement;
-  //public playAreaDivEl: HTMLDivElement = document.getElementById('playArea') as HTMLDivElement;
-
-  /**
-  * Reference to the div containing all possible wager buttons
-  */
-  public wagerOptionsDivEl: HTMLDivElement = document.getElementById('wagerOptions') as HTMLDivElement;
-  //public wagerOptionsDivEl: HTMLDivElement = document.getElementById('wagerOptions') as HTMLDivElement;
 
   /**
    * The UserDto object containing the logged in user's data
@@ -87,6 +35,26 @@ export class PlayGameComponent implements OnInit {
    * The amount the player is betting on a single hand of blackjack
    */
   public wager: number = 0;
+
+  /**
+   * Determines if an HTML element will be hidden.
+   */
+  public isHidden: boolean = true;
+
+  /**
+    * Determines if the Play Again button will be hidden.
+    */
+  public isPlayAgainHidden: boolean = true;
+
+  /**
+  * Determines if the Hit and Stay buttons will be hidden.
+  */
+  public isGameButtonHidden: boolean = true;
+  /**
+   * Explains to the player what play options are available as well
+   * as the outcome of the game.
+   */
+  public nextMove: string;
 
   constructor(private _userApi: UserApi) {
   }
@@ -122,38 +90,35 @@ export class PlayGameComponent implements OnInit {
     while (isNaN(decks) || decks < 1) {
       decks = parseInt(prompt(`${decks} is not a valid amount, please try again.`, '1'));
     }
-    console.log('in play 1');
     this.deck.shuffle(decks);
     this.player.updateHand(this.deck.deal(2));
     this.dealer.updateHand(this.deck.deal(2));
-    this.playBtnEl.classList.add('hidden');
-    this.wagerOptionsDivEl.classList.add('hidden');
-    this.playerHandLabelEl.innerText = this.player.getStatus();
-    console.log('in play');
+    this.isHidden = false;
 
     /*Checks for blackjacks. If anyone does, game automatically ends.*/
     if (this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
       this.revealDealer();
-      this.nextMoveLabelEl.innerText = BlackjackOutcomes.BothBlackjack;
-      this.playAgainButtonEl.classList.remove('hidden');
+      this.nextMove = BlackjackOutcomes.BothBlackjack;
+      this.pushOutcome();
+      this.isPlayAgainHidden = false;
       return;
     }
     else if (this.player.hasBlackJack() && !this.dealer.hasBlackJack()) {
       this.revealDealer();
-      this.nextMoveLabelEl.innerText = BlackjackOutcomes.PlayerBlackjack;
-      this.playAgainButtonEl.classList.remove('hidden');
+      this.nextMove = BlackjackOutcomes.PlayerBlackjack;
+      this.winOutcome();
+      this.isPlayAgainHidden = false;
       return;
     }
     else if (!this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
       this.revealDealer();
-      this.nextMoveLabelEl.innerText = BlackjackOutcomes.DealerBlackjack;
-      this.playAgainButtonEl.classList.remove('hidden');
+      this.nextMove = BlackjackOutcomes.DealerBlackjack;
+      this.loseOutcome();
+      this.isPlayAgainHidden = false;
       return;
     }
-
-    this.houseHandLabelEl.innerText = this.dealer.getStatus();
-    this.nextMoveLabelEl.innerText = BlackjackOutcomes.PlayerChoice;
-    this.showGameButtons();
+    this.nextMove = BlackjackOutcomes.PlayerChoice;
+    this.isGameButtonHidden = false;
   }
 
   /**
@@ -161,11 +126,12 @@ export class PlayGameComponent implements OnInit {
    */
   public hit(): void {
     this.player.updateHand(this.deck.deal(1));
-    this.playerHandLabelEl.innerText = this.player.getStatus();
     if (this.player.hasBusted) {
       this.revealDealer();
-      this.nextMoveLabelEl.innerText = BlackjackOutcomes.DealerWin;
-      this.playAgainButtonEl.classList.remove('hidden');
+      this.nextMove = BlackjackOutcomes.DealerWin;
+      this.loseOutcome();
+      this.isPlayAgainHidden = false;
+      this.isGameButtonHidden = true;
     }
   }
 
@@ -178,17 +144,22 @@ export class PlayGameComponent implements OnInit {
     const intervalID = setInterval(() => {
       if (this.dealer.score > 17 || (this.dealer.score === 17 && !this.dealer.hasSoft17()) || this.dealer.hasBusted) {
         clearInterval(intervalID);
-        if (this.dealer.score < this.player.score || this.dealer.hasBusted)
-          this.nextMoveLabelEl.innerText = BlackjackOutcomes.PlayerWin;
-        else if (this.dealer.score > this.player.score)
-          this.nextMoveLabelEl.innerText = BlackjackOutcomes.DealerWin;
-        else
-          this.nextMoveLabelEl.innerText = BlackjackOutcomes.Push;
-        this.playAgainButtonEl.classList.remove('hidden');
+        if (this.dealer.score < this.player.score || this.dealer.hasBusted) {
+          this.nextMove = BlackjackOutcomes.PlayerWin;
+          this.winOutcome();
+        }
+        else if (this.dealer.score > this.player.score) {
+          this.nextMove = BlackjackOutcomes.Push;
+          this.pushOutcome();
+        }
+        else {
+          this.nextMove = BlackjackOutcomes.DealerWin;
+          this.loseOutcome();
+        }
+        this.isPlayAgainHidden = false;
         return;
       }
       this.dealer.updateHand(this.deck.deal(1));
-      this.houseHandLabelEl.innerText = this.dealer.getStatus();
     }, 2000);
   }
 
@@ -196,12 +167,11 @@ export class PlayGameComponent implements OnInit {
    * Resets the player and dealer and starts a new game.
    */
   public playAgain(): void {
-    this.playAgainButtonEl.classList.add('hidden');
-    this.playAreaDivEl.classList.add('hidden');
-    this.wagerOptionsDivEl.classList.remove('hidden');
+    this.isHidden = true;
+    this.isPlayAgainHidden = true;
+    this.isGameButtonHidden = true;
     this.player.reset();
     this.dealer.reset();
-    this.startGame();
   }
 
   /**
@@ -209,50 +179,46 @@ export class PlayGameComponent implements OnInit {
    */
   public revealDealer(): void {
     this.dealer.isDealerTurn = true;
-    this.houseHandLabelEl.innerText = this.dealer.getStatus();
-    this.hideGameButtons();
+    this.dealer.updateHand(this.deck.deal(0));
+    this.isGameButtonHidden = true;
   }
 
-  /**
-   * Hides the Hit and Stay buttons to prevent player from taking actions. 
-   */
-  public hideGameButtons(): void {
-    this.hitBtnEl.classList.add('hidden');
-    this.stayBtnEl.classList.add('hidden');
-  }
-
-  /**
-   * Reveals the Hit and Stay buttons to allow the player to take actions. 
-   */
-  public showGameButtons(): void {
-    this.hitBtnEl.classList.remove('hidden');
-    this.stayBtnEl.classList.remove('hidden');
-  }
   /*TO DO: implement update user endpoint*/
   public winOutcome(): void {
     this.user.balance += (this.wager * 2);
+    this.wager = 0;
   }
 
   /**TO DO: Implement update user endpoint */
   public loseOutcome(): void {
+    this.wager = 0;
+  }
 
+  /**TO DO: Implement update user endpoint */
+  public pushOutcome(): void {
+    this.user.balance += this.wager;
+    this.wager = 0;
   }
 
   public async ngOnInit(): Promise<void> {
-    this.user = await this._userApi.getUser('test');
+    this.user = new UserDto();
+    this.user.balance = 500;
+    this.user.username = 'Test';
+    //this.user = await this._userApi.getUser('test');
+    this.player.name = this.user.username;
   }
 }
 
-  /**
-   * Contains possible entries for the Next Move label.
-   */
-  enum BlackjackOutcomes {
-    BothBlackjack = 'You both have 21! It\'s a push! Play again?',
-    PlayerBlackjack = 'You have 21! You win! Play again?',
-    DealerBlackjack = 'Dealer has 21! You lose! Play again?',
-    PlayerWin = 'You win! Play again?',
-    DealerWin = 'Dealer wins! Play again?',
-    PlayerChoice = 'What would you like to do?',
-    Push = 'You tied. It\'s a push!'
+/**
+ * Contains possible entries for the Next Move label.
+ */
+enum BlackjackOutcomes {
+  BothBlackjack = 'You both have 21! It\'s a push! Play again?',
+  PlayerBlackjack = 'You have 21! You win! Play again?',
+  DealerBlackjack = 'Dealer has 21! You lose! Play again?',
+  PlayerWin = 'You win! Play again?',
+  DealerWin = 'Dealer wins! Play again?',
+  PlayerChoice = 'What would you like to do?',
+  Push = 'You tied. It\'s a push!'
 }
 
