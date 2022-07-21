@@ -1,19 +1,23 @@
 <label id="balance">Your Balance: {{user.balance}}</label>
-<div id="wagerOptions" [class.hidden]="!isHidden">
-  <button id="one" (click)="_addToWager(1)">$1</button>
-  <button id="five" (click)="_addToWager(5)">$5</button>
-  <button id="twentyFive" (click)="_addToWager(25)">$25</button>
-  <button id="oneHundred" (click)="_addToWager(100)">$100</button>
-  <button id="fiveHundred" (click)="_addToWager(500)">$500</button>
-  <button id="clearWager" (click)="_clearWager()">Clear Wager</button>
+<div id="wagerOptions" [class.hidden]="isPregameHidden">
+  <button (click)="_addToWager(1)">$1</button>
+  <button (click)="_addToWager(5)">$5</button>
+  <button (click)="_addToWager(25)">$25</button>
+  <button (click)="_addToWager(100)">$100</button>
+  <button (click)="_addToWager(500)">$500</button>
+  <button (click)="_clearWager()">Clear Wager</button>
 </div>
-<label id="wager">{{wager}}</label>
-<button id="playBtn" (click)="startGame()" [class.hidden]="!isHidden">Play!</button>
-<div id="playArea" [class.hidden]="isHidden">
-  <label id="playerHand">{{player.status}}</label>
-  <label id="houseHand">{{dealer.status}}</label>
-  <label id="nextMove">{{nextMove}}</label>
-  <button id="hitBtn" (click)="hit()" [class.hidden]="isGameButtonHidden">Hit me!</button>
-  <button id="stayBtn" (click)="stay()" [class.hidden]="isGameButtonHidden">Stay.</button>
-  <button id="playAgain" (click)="playAgain()" [class.hidden]="isPlayAgainHidden">Play Again?</button>
+<label>{{wager}}</label>
+<div [class.hidden]="isPregameHidden">
+  <label>Insert how many decks would you like to play with: </label>
+  <input [(ngModel)]="deckQty" placeholder="deckQty" />
+  <button (click)="startGame()">Play!</button>
+</div>
+<div [class.hidden]="isPlayAreaHidden">
+  <label>{{player.status}}</label>
+  <label>{{dealer.status}}</label>
+  <label>{{nextMove}}</label>
+  <button (click)="hit()" [class.hidden]="isGameButtonHidden">Hit me!</button>
+  <button (click)="stay()" [class.hidden]="isGameButtonHidden">Stay.</button>
+  <button (click)="playAgain()" [class.hidden]="isPlayAgainHidden">Play Again?</button>
 </div>

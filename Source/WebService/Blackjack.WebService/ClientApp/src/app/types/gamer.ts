@@ -14,7 +14,16 @@ export abstract class Gamer {
     return this._hand;
   }
 
-  public status: string;
+  /**
+   * The current status of the player's hand and score
+   */
+  protected _status: string;
+  /**
+   * The current status of the player's hand and score
+   */
+  public get status(): string {
+    return this._status;
+  }
   /**
    * The sum of the value of the player's hand
    */
@@ -44,9 +53,10 @@ export abstract class Gamer {
    * Displays the name, showing cards, and score for the player
    * @param gamer
    */
-  protected printStatus(gamer: string): void {
-    this.status = `${gamer} is showing ${this._hand.join(', ')}`;
-    this.status += (this.hasBusted ? ' and has busted with ' : ' for ') + `${this._score}`;
+  protected setStatus(gamer: string): void {
+    this._status = `${gamer} is showing ${this._hand.join(', ')}`
+      + (this.hasBusted ? ' and has busted with ' : ' for ')
+      + `${this._score}`;
   }
 
   /**
@@ -54,10 +64,7 @@ export abstract class Gamer {
    */
   public hasBlackJack(): boolean {
     this.updateScore();
-    if (this._score === 21)
-      return true;
-    else
-      return false;
+    return this.score === 21;
   }
 
   /**
@@ -83,7 +90,10 @@ export abstract class Gamer {
         else
           return tempScore + 1;
       }, 0);
-
+    /* If our score is over 21 but an Ace was added as 11,
+    then we need to retroactively change it's value to 1*/
+    if (aceCount > 0 && this._score > 21)
+      this._score -= 10;
     this.hasBusted = this._score > 21;
   }
 }

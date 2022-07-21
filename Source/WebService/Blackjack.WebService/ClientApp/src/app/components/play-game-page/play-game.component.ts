@@ -37,9 +37,19 @@ export class PlayGameComponent implements OnInit {
   public wager: number = 0;
 
   /**
-   * Determines if an HTML element will be hidden.
+   * The number of decks the player is playing with.
    */
-  public isHidden: boolean = true;
+  public deckQty: number = 1;
+
+  /**
+   * Determines if the wager options div and play button will be hidden.
+   */
+  public isPregameHidden: boolean = false;
+
+  /**
+   * Determines if the entire Play Area div will be hidden.
+   */
+  public isPlayAreaHidden: boolean = true;
 
   /**
     * Determines if the Play Again button will be hidden.
@@ -86,14 +96,15 @@ export class PlayGameComponent implements OnInit {
   * Also determines if either the player, dealer, or both have black jack.
   */
   public startGame(): void {
-    let decks: number = parseInt(prompt('How many decks are you playing with?', '1'));
-    while (isNaN(decks) || decks < 1) {
-      decks = parseInt(prompt(`${decks} is not a valid amount, please try again.`, '1'));
+    if (isNaN(this.deckQty) || this.deckQty < 1) {
+      alert(`${this.deckQty} is not a valid amount of decks, please try again.`);
+      return;
     }
-    this.deck.shuffle(decks);
+    this.deck.shuffle(this.deckQty);
     this.player.updateHand(this.deck.deal(2));
     this.dealer.updateHand(this.deck.deal(2));
-    this.isHidden = false;
+    this.isPregameHidden = true;
+    this.isPlayAreaHidden = false;
 
     /*Checks for blackjacks. If anyone does, game automatically ends.*/
     if (this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
@@ -149,12 +160,12 @@ export class PlayGameComponent implements OnInit {
           this.winOutcome();
         }
         else if (this.dealer.score > this.player.score) {
-          this.nextMove = BlackjackOutcomes.Push;
-          this.pushOutcome();
-        }
-        else {
           this.nextMove = BlackjackOutcomes.DealerWin;
           this.loseOutcome();
+        }
+        else {
+          this.nextMove = BlackjackOutcomes.Push;
+          this.pushOutcome();
         }
         this.isPlayAgainHidden = false;
         return;
@@ -167,7 +178,8 @@ export class PlayGameComponent implements OnInit {
    * Resets the player and dealer and starts a new game.
    */
   public playAgain(): void {
-    this.isHidden = true;
+    this.isPregameHidden = false;
+    this.isPlayAreaHidden = true;
     this.isPlayAgainHidden = true;
     this.isGameButtonHidden = true;
     this.player.reset();
@@ -179,7 +191,7 @@ export class PlayGameComponent implements OnInit {
    */
   public revealDealer(): void {
     this.dealer.isDealerTurn = true;
-    this.dealer.updateHand(this.deck.deal(0));
+    this.dealer.setStatus();
     this.isGameButtonHidden = true;
   }
 

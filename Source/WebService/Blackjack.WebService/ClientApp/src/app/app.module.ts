@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LayoutComponent } from '../shared/components/layout.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PlayGameComponent } from './components/play-game-page/play-game.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { PlayGameComponent } from './components/play-game-page/play-game.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]
