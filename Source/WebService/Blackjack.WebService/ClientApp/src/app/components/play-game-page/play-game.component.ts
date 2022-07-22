@@ -108,24 +108,15 @@ export class PlayGameComponent implements OnInit {
 
     /*Checks for blackjacks. If anyone does, game automatically ends.*/
     if (this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
-      this.revealDealer();
-      this.nextMove = BlackjackOutcomes.BothBlackjack;
-      this.pushOutcome();
-      this.isPlayAgainHidden = false;
+      this.resolveBlackjack(BlackjackOutcomes.BothBlackjack, () => this.pushOutcome());
       return;
     }
     else if (this.player.hasBlackJack() && !this.dealer.hasBlackJack()) {
-      this.revealDealer();
-      this.nextMove = BlackjackOutcomes.PlayerBlackjack;
-      this.winOutcome();
-      this.isPlayAgainHidden = false;
+      this.resolveBlackjack(BlackjackOutcomes.PlayerBlackjack, () => this.winOutcome());
       return;
     }
     else if (!this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
-      this.revealDealer();
-      this.nextMove = BlackjackOutcomes.DealerBlackjack;
-      this.loseOutcome();
-      this.isPlayAgainHidden = false;
+      this.resolveBlackjack(BlackjackOutcomes.DealerBlackjack, () => this.loseOutcome());
       return;
     }
     this.nextMove = BlackjackOutcomes.PlayerChoice;
@@ -184,6 +175,19 @@ export class PlayGameComponent implements OnInit {
     this.isGameButtonHidden = true;
     this.player.reset();
     this.dealer.reset();
+  }
+
+  /**
+   * Resolves any Blackjack situation by taking a Blackjack
+   * outcome and an overall game outcome.
+   * @param nextMove
+   * @param outcomeFunc
+   */
+  public resolveBlackjack(nextMove: BlackjackOutcomes, outcomeFunc: () => void): void {
+    this.revealDealer();
+    this.nextMove = nextMove;
+    outcomeFunc();
+    this.isPlayAgainHidden = false;
   }
 
   /**
