@@ -13,7 +13,7 @@ export class Deck {
      * Populates the stack with as many decks as the player chooses.
      * @param deckQty
      */
-    public shuffle(deckQty: number = 1): void {
+    public shuffle(deckQty: number): void {
         this.stack = [];
         const baseDeck: string[] = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         const newDeck: string[] =

@@ -6,10 +6,8 @@ export class Player extends Gamer {
    */
   public name: string;
 
-  /**
-   * Displays the name, shown cards, and score of the player
-   */
-  public getStatus(): string {
-    return super.printStatus(this.name);
+  public updateHand(cards: string[]): void {
+    super.updateHand(cards);
+    super.calcStatus(this.name);
   }
 }
