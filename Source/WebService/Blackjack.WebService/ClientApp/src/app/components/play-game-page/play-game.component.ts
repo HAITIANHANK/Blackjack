@@ -137,6 +137,7 @@ export class PlayGameComponent implements OnInit {
     }
   }
 
+  // TODO: Use RxJS to perform interval work and move off setInterval
   /**
    * Ends the players turn, reveals dealer's cards, hides game buttons, and plays
    * the dealer's hand over two second intervals.
@@ -195,7 +196,7 @@ export class PlayGameComponent implements OnInit {
    */
   public revealDealer(): void {
     this.dealer.isDealerTurn = true;
-    this.dealer.setStatus();
+    this.dealer.calcStatus();
     this.isGameButtonHidden = true;
   }
 

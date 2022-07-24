@@ -1,5 +1,5 @@
-<label id="balance">Your Balance: {{user.balance}}</label>
-<div id="wagerOptions" [class.hidden]="isPregameHidden">
+<label>Your Balance: {{user.balance}}</label>
+<div [class.hidden]="isPregameHidden">
   <button (click)="_addToWager(1)">$1</button>
   <button (click)="_addToWager(5)">$5</button>
   <button (click)="_addToWager(25)">$25</button>

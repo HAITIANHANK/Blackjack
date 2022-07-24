@@ -8,6 +8,6 @@ export class Player extends Gamer {
 
   public updateHand(cards: string[]): void {
     super.updateHand(cards);
-    super.setStatus(this.name);
+    super.calcStatus(this.name);
   }
 }

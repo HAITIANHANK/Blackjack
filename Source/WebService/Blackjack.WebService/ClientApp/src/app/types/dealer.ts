@@ -8,17 +8,17 @@ export class Dealer extends Gamer {
 
   public updateHand(cards: string[]): void {
     super.updateHand(cards);
-    this.setStatus();
+    this.calcStatus();
   }
 
   /**
    * Updates the status to display the name, shown cards, and score of the player 
    */
-  public setStatus(): void {
+  public calcStatus(): void {
     if (!this.isDealerTurn)
       this._status = `The dealer is showing ${this._hand[0]}`
     else
-      super.setStatus("The dealer");
+      super.calcStatus("The dealer");
   }
 
   public override reset(): void {

@@ -53,7 +53,7 @@ export abstract class Gamer {
    * Displays the name, showing cards, and score for the player
    * @param gamer
    */
-  protected setStatus(gamer: string): void {
+  protected calcStatus(gamer: string): void {
     this._status = `${gamer} is showing ${this._hand.join(', ')}`
       + (this.hasBusted ? ' and has busted with ' : ' for ')
       + `${this._score}`;
