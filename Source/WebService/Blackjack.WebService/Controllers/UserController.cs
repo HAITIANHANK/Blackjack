@@ -37,4 +37,12 @@ public class UserController : Controller
         UserBM result = user == null ? null : _mapper.Map<UserBM>(user);
         return Ok(result);
     }
+
+    public async Task<ActionResult<UserBM>> UpdateUser([FromBody] UserBM user)
+    {
+        UserBE userBE = _mapper.Map<UserBE>(user);
+        UserBE updatedUserBE = await _userAdapter.UpdateUser(userBE);
+        UserBM updatedUserBM = updatedUserBE == null ? null : _mapper.Map<UserBM>(updatedUserBE);
+        return Ok(updatedUserBM);
+    }
 }
