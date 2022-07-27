@@ -38,6 +38,7 @@ public class UserController : Controller
         return Ok(result);
     }
 
+    [HttpPost]
     public async Task<ActionResult<UserBM>> UpdateUser([FromBody] UserBM user)
     {
         UserBE userBE = _mapper.Map<UserBE>(user);

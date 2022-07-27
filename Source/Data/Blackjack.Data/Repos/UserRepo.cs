@@ -144,7 +144,7 @@ public class UserRepo : BaseRepo, IUserRepo
     {
         public const string CreateUser = "user.usp_INSERT_User";
         public const string GetUser = "user.usp_SELECT_Users_BySoundex";
-        public const string UpdateUser = "hold";
+        public const string UpdateUser = "user.usp_UPDATE_User_ByID";
     }
 }
 

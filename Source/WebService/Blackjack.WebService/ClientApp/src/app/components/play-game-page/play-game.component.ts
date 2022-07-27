@@ -200,18 +200,25 @@ export class PlayGameComponent implements OnInit {
     this.isGameButtonHidden = true;
   }
 
-  /*TO DO: implement update user endpoint*/
+  /**
+   * Resolves any situation in which the player wins a hand of blackjack
+   */
   public winOutcome(): void {
     this.user.balance += (this.wager * 2);
     this.wager = 0;
+    this._userApi.updateUser(this.user);
   }
 
-  /**TO DO: Implement update user endpoint */
-  public loseOutcome(): void {
+  /**
+   * Resolves any situation in which the player loses a hand of blackjack
+   */  public loseOutcome(): void {
     this.wager = 0;
+    this._userApi.updateUser(this.user);
   }
 
-  /**TO DO: Implement update user endpoint */
+  /**
+   * Resolves any situation in which the player ties in a hand of blackjack
+   */
   public pushOutcome(): void {
     this.user.balance += this.wager;
     this.wager = 0;
@@ -219,9 +226,7 @@ export class PlayGameComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.user = new UserDto();
-    this.user.balance = 500;
-    this.user.username = 'Test';
-    //this.user = await this._userApi.getUser('test');
+    this.user = await this._userApi.getUser('test');
     this.player.name = this.user.username;
   }
 }

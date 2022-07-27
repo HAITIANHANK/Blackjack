@@ -18,4 +18,7 @@ export class UserApi {
     return await this._http.get<UserDto>(`User/GetUser?username=${username}`).toPromise();
   }
 
+  public async updateUser(user: UserDto): Promise<UserDto> {
+    return await this._http.post<UserDto>('User/UpdateUser', user).toPromise();
+  }
 }
