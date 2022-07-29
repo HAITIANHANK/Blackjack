@@ -31,9 +31,17 @@ public class UserController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<UserBM>> GetUser([FromQuery] string username)
+    public async Task<ActionResult<UserBM>> GetUserByUsername([FromQuery] string username)
     {
-        UserBE user = await _userAdapter.GetUsers(username);
+        UserBE user = await _userAdapter.GetUserBySoundex(username);
+        UserBM result = user == null ? null : _mapper.Map<UserBM>(user);
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<UserBM>> GetUserByID([FromQuery] int userID)
+    {
+        UserBE user = await _userAdapter.GetUserByID(userID);
         UserBM result = user == null ? null : _mapper.Map<UserBM>(user);
         return Ok(result);
     }
@@ -43,7 +51,7 @@ public class UserController : Controller
     {
         UserBE userBE = _mapper.Map<UserBE>(user);
         UserBE updatedUserBE = await _userAdapter.UpdateUser(userBE);
-        UserBM updatedUserBM = updatedUserBE == null ? null : _mapper.Map<UserBM>(updatedUserBE);
+        UserBM updatedUserBM = _mapper.Map<UserBM>(updatedUserBE);
         return Ok(updatedUserBM);
     }
 }

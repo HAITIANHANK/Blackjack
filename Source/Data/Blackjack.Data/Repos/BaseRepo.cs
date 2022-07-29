@@ -14,8 +14,6 @@ public abstract class BaseRepo
 
     protected virtual async Task Create(string sproc, List<SqlParameter> sprocParams)
     {
-        if (sproc != "Test")
-        {
             using SqlConnection conn = _dataService.GetConnection();
             await conn.OpenAsync();
             using SqlCommand cmd = conn.CreateCommand();
@@ -24,7 +22,6 @@ public abstract class BaseRepo
             cmd.Parameters.AddRange(sprocParams.ToArray());
             await cmd.ExecuteNonQueryAsync();
             await conn.CloseAsync();
-        }
     }
 
     protected virtual async Task<DataTable> Get(string sproc, List<SqlParameter> sprocParams)
