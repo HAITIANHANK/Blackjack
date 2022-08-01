@@ -20,14 +20,4 @@ BEGIN
 			END;
 		THROW
 	END CATCH
-
-	SELECT
-		UserID,
-		Username,
-		UserSoundex,
-		Balance
-	FROM
-		Users
-	WHERE
-		UserID = @UserID
 END

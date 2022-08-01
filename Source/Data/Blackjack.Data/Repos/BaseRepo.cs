@@ -39,7 +39,7 @@ public abstract class BaseRepo
         return resultTable;
     }
 
-    protected virtual async Task<DataTable> Update(string sproc, List<SqlParameter> sprocParams)
+    protected virtual async Task Update(string sproc, List<SqlParameter> sprocParams)
     {
         using SqlConnection conn = _dataService.GetConnection();
         await conn.OpenAsync();
@@ -47,10 +47,7 @@ public abstract class BaseRepo
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.CommandText = sproc;
         cmd.Parameters.AddRange(sprocParams.ToArray());
-        using SqlDataReader queryResults = await cmd.ExecuteReaderAsync();
-        DataTable resultTable = new DataTable();
-        resultTable.Load(queryResults);
+        await cmd.ExecuteNonQueryAsync();
         await conn.CloseAsync();
-        return resultTable;
     }
 }

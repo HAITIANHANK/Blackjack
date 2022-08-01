@@ -134,8 +134,7 @@ public class UserRepo : BaseRepo, IUserRepo
                 }
             };
 
-        DataTable queryData =
-            await base.Update(StoredProcedures.UpdateUser, parameters);
+        await base.Update(StoredProcedures.UpdateUser, parameters);
     }
     private List<UserEntity> CreateUserEntity(DataTable userDataTable)
     {
