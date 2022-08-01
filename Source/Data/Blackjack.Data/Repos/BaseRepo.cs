@@ -14,8 +14,6 @@ public abstract class BaseRepo
 
     protected virtual async Task Create(string sproc, List<SqlParameter> sprocParams)
     {
-        if (sproc != "Test")
-        {
             using SqlConnection conn = _dataService.GetConnection();
             await conn.OpenAsync();
             using SqlCommand cmd = conn.CreateCommand();
@@ -24,7 +22,6 @@ public abstract class BaseRepo
             cmd.Parameters.AddRange(sprocParams.ToArray());
             await cmd.ExecuteNonQueryAsync();
             await conn.CloseAsync();
-        }
     }
 
     protected virtual async Task<DataTable> Get(string sproc, List<SqlParameter> sprocParams)
@@ -40,5 +37,17 @@ public abstract class BaseRepo
         resultTable.Load(queryResults);
         await conn.CloseAsync();
         return resultTable;
+    }
+
+    protected virtual async Task Update(string sproc, List<SqlParameter> sprocParams)
+    {
+        using SqlConnection conn = _dataService.GetConnection();
+        await conn.OpenAsync();
+        using SqlCommand cmd = conn.CreateCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.CommandText = sproc;
+        cmd.Parameters.AddRange(sprocParams.ToArray());
+        await cmd.ExecuteNonQueryAsync();
+        await conn.CloseAsync();
     }
 }
