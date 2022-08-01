@@ -33,7 +33,7 @@ public class UserController : Controller
     [HttpGet]
     public async Task<ActionResult<UserBM>> GetUserByUsername([FromQuery] string username)
     {
-        UserBE user = await _userAdapter.GetUserBySoundex(username);
+        UserBE user = await _userAdapter.GetUserByUsername(username);
         UserBM result = user == null ? null : _mapper.Map<UserBM>(user);
         return Ok(result);
     }

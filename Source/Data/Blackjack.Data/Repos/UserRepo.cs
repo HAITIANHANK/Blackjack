@@ -84,7 +84,7 @@ public class UserRepo : BaseRepo, IUserRepo
             }
         };
 
-        DataTable queryData = await base.Get(StoredProcedures.GetUserBySoundex, parameters);
+        DataTable queryData = await base.Get(StoredProcedures.GetUsersBySoundex, parameters);
 
         List<UserEntity> userEntities = CreateUserEntity(queryData);
 
@@ -98,7 +98,7 @@ public class UserRepo : BaseRepo, IUserRepo
             new SqlParameter()
             {
                 ParameterName = $"@{nameof(UserEntity.UserID)}",
-                SqlDbType = SqlDbType.VarChar,
+                SqlDbType = SqlDbType.Int,
                 Value = userID
             }
         };
@@ -160,7 +160,7 @@ public class UserRepo : BaseRepo, IUserRepo
     private struct StoredProcedures
     {
         public const string CreateUser = "user.usp_INSERT_User";
-        public const string GetUserBySoundex = "user.usp_SELECT_Users_BySoundex";
+        public const string GetUsersBySoundex = "user.usp_SELECT_Users_BySoundex";
         public const string UpdateUser = "user.usp_UPDATE_User_ByID";
         public const string GetUserByID = "user.usp_SELECT_Users_ByID";
     }

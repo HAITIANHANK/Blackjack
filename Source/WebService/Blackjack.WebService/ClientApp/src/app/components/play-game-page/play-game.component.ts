@@ -69,6 +69,12 @@ export class PlayGameComponent implements OnInit {
   constructor(private _userApi: UserApi) {
   }
 
+  public async ngOnInit(): Promise<void> {
+    this.user = new UserDto();
+    this.user = await this._userApi.getUserByID(1);
+    this.player.name = this.user.username;
+  }
+
   /**
    * Removes predertimined amounts from the player's balance and
    * adds it to the upcoming hand's wager
@@ -108,15 +114,15 @@ export class PlayGameComponent implements OnInit {
 
     /*Checks for blackjacks. If anyone does, game automatically ends.*/
     if (this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
-      this.resolveBlackjack(BlackjackOutcomes.BothBlackjack, async () => this.pushOutcome());
+      this.resolveBlackjack(BlackjackOutcomes.BothBlackjack, async () => await this.pushOutcome());
       return;
     }
     else if (this.player.hasBlackJack() && !this.dealer.hasBlackJack()) {
-      this.resolveBlackjack(BlackjackOutcomes.PlayerBlackjack, async () => this.winOutcome());
+      this.resolveBlackjack(BlackjackOutcomes.PlayerBlackjack, async () => await this.winOutcome());
       return;
     }
     else if (!this.player.hasBlackJack() && this.dealer.hasBlackJack()) {
-      this.resolveBlackjack(BlackjackOutcomes.DealerBlackjack, async () => this.loseOutcome());
+      this.resolveBlackjack(BlackjackOutcomes.DealerBlackjack, async () => await this.loseOutcome());
       return;
     }
     this.nextMove = BlackjackOutcomes.PlayerChoice;
@@ -224,12 +230,6 @@ export class PlayGameComponent implements OnInit {
     this.user.balance += this.wager;
     this.wager = 0;
     await this._userApi.updateUser(this.user);    
-  }
-
-  public async ngOnInit(): Promise<void> {
-    this.user = new UserDto();
-    this.user = await this._userApi.getUserByID(1);
-    this.player.name = this.user.username;
   }
 }
 

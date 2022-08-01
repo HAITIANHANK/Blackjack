@@ -23,7 +23,7 @@ public interface IUserAdapter
     /// </summary>
     /// <param name="username"></param>
     /// <returns></returns>
-    Task<UserBE> GetUserBySoundex(string username);
+    Task<UserBE> GetUserByUsername(string username);
 
     /// <summary>
     /// Retrieves a user from the Users table based on the UserID.
@@ -54,7 +54,7 @@ public class UserAdapter : IUserAdapter
     public async Task CreateUser(string username)
     {
         string soundex = CreateSoundex(username);
-        UserBE userBE = await GetUserBySoundex(username);
+        UserBE userBE = await GetUserByUsername(username);
         if (userBE != null)
         {
             throw new WebException(HttpStatusCode.BadRequest, "Username already exists.");
@@ -62,10 +62,10 @@ public class UserAdapter : IUserAdapter
         await _userFacade.CreateUser(username, soundex, balance: 500);
     }
 
-    public async Task<UserBE> GetUserBySoundex(string username)
+    public async Task<UserBE> GetUserByUsername(string username)
     {
         string soundex = CreateSoundex(username);
-        List<UserBE> usersBySoundex = await _userFacade.GetUserBySoundex(soundex);
+        List<UserBE> usersBySoundex = await _userFacade.GetUsersBySoundex(soundex);
         return usersBySoundex?.SingleOrDefault(user => user.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -83,8 +83,8 @@ public class UserAdapter : IUserAdapter
         }
         dbUser.Username = user.Username;
         dbUser.Balance = user.Balance;
-        await _userFacade.UpdateUser(dbUser);
-        return dbUser;
+        UserBE updatedUser = await _userFacade.UpdateUser(dbUser);
+        return updatedUser;
     }
 
     private string CreateSoundex(string username)
