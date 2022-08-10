@@ -1,23 +1,29 @@
-<label>Your Balance: {{user.balance}}</label>
-<div [class.hidden]="isPregameHidden">
-  <button (click)="_addToWager(1)">$1</button>
-  <button (click)="_addToWager(5)">$5</button>
-  <button (click)="_addToWager(25)">$25</button>
-  <button (click)="_addToWager(100)">$100</button>
-  <button (click)="_addToWager(500)">$500</button>
-  <button (click)="_clearWager()">Clear Wager</button>
-</div>
-<label>{{wager}}</label>
-<div [class.hidden]="isPregameHidden">
-  <label>Insert how many decks would you like to play with: </label>
-  <input [(ngModel)]="deckQty" placeholder="deckQty" />
-  <button (click)="startGame()">Play!</button>
-</div>
-<div [class.hidden]="isPlayAreaHidden">
-  <label>{{player.status}}</label>
-  <label>{{dealer.status}}</label>
-  <label>{{nextMove}}</label>
-  <button (click)="hit()" [class.hidden]="isGameButtonHidden">Hit me!</button>
-  <button (click)="stay()" [class.hidden]="isGameButtonHidden">Stay.</button>
-  <button (click)="playAgain()" [class.hidden]="isPlayAgainHidden">Play Again?</button>
+<div class="mainBody">
+  <div class="fundRelated">
+    <label>Your Balance: {{user.balance}}</label>
+    <label>Current wager: {{wager}}</label>
+    <div [class.hidden]="isPregameHidden" class="wagerBtns">
+      <button (click)="_addToWager(1)" class="wagerBtn btn btn-info">$1</button>
+      <button (click)="_addToWager(5)" class="wagerBtn btn btn-info">$5</button>
+      <button (click)="_addToWager(25)" class="wagerBtn btn btn-info">$25</button>
+      <button (click)="_addToWager(100)" class="wagerBtn btn btn-info">$100</button>
+      <button (click)="_addToWager(500)" class="wagerBtn btn btn-info">$500</button>
+      <button (click)="_clearWager()" class="wagerBtn btn btn-warning">Clear Wager</button>
+    </div>
+  </div>
+  <div [class.hidden]="isPregameHidden" class="pregame">
+    <label>Insert how many decks would you like to play with: </label>
+    <div class="pregameInput">
+      <input [(ngModel)]="deckQty" placeholder="deckQty" />
+      <button (click)="startGame()" class="btn btn-success">Play!</button>
+    </div>
+  </div>
+  <div [class.hiden]="isPlayAreaHidden" class="playArea">
+    <label>{{player.status}}</label>
+    <label>{{dealer.status}}</label>
+    <label>{{nextMove}}</label>
+    <button (click)="hit()" [class.hidden]="isGameButtonHidden" class="btn btn-warning">Hit me!</button>
+    <button (click)="stay()" [class.hidden]="isGameButtonHidden" class="btn btn-danger">Stay.</button>
+    <button (click)="playAgain()" [class.hidden]="isPlayAgainHidden" class="btn btn-primary">Play Again?</button>
+  </div>
 </div>
