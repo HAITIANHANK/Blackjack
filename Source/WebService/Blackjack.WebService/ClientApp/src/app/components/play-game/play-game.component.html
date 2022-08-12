@@ -1,0 +1,31 @@
+<div class="mainBody">
+  <div class="balanceAndWagerContainer">
+    <label>Your Balance: {{user.balance}}</label>
+    <label>Current wager: {{wager}}</label>
+    <div [class.hidden]="isPregameHidden">
+      <button (click)="_addToWager(1)" class="gameBtn btn btn-info">$1</button>
+      <button (click)="_addToWager(5)" class="gameBtn btn btn-info">$5</button>
+      <button (click)="_addToWager(25)" class="gameBtn btn btn-info">$25</button>
+      <button (click)="_addToWager(100)" class="gameBtn btn btn-info">$100</button>
+      <button (click)="_addToWager(500)" class="gameBtn btn btn-info">$500</button>
+      <button (click)="_clearWager()" class="gameBtn btn btn-warning">Clear Wager</button>
+    </div>
+  </div>
+  <div [class.hidden]="isPregameHidden" class="pregame">
+    <label>Insert how many decks would you like to play with: </label>
+    <div>
+      <input [(ngModel)]="deckQty" placeholder="deckQty" />
+      <button (click)="startGame()" class="gameBtn btn btn-success">Play!</button>
+    </div>
+  </div>
+  <div [class.hiden]="isPlayAreaHidden" class="playArea">
+    <label>{{player.status}}</label>
+    <label>{{dealer.status}}</label>
+    <label>{{nextMove}}</label>
+    <div>
+      <button (click)="hit()" [class.hidden]="isGameButtonHidden" class="gameBtn btn btn-warning">Hit me!</button>
+      <button (click)="stay()" [class.hidden]="isGameButtonHidden" class="gameBtn btn btn-danger">Stay.</button>
+    </div>
+    <button (click)="playAgain()" [class.hidden]="isPlayAgainHidden" class="btn btn-primary">Play Again?</button>
+  </div>
+</div>
