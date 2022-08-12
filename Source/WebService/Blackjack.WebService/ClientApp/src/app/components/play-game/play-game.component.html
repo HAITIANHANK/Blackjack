@@ -1,8 +1,8 @@
 <div class="mainBody">
-  <div class="fundRelated">
+  <div class="balanceAndWagerContainer">
     <label>Your Balance: {{user.balance}}</label>
     <label>Current wager: {{wager}}</label>
-    <div [class.hidden]="isPregameHidden" class="wagerBtns">
+    <div [class.hidden]="isPregameHidden">
       <button (click)="_addToWager(1)" class="gameBtn btn btn-info">$1</button>
       <button (click)="_addToWager(5)" class="gameBtn btn btn-info">$5</button>
       <button (click)="_addToWager(25)" class="gameBtn btn btn-info">$25</button>
@@ -13,7 +13,7 @@
   </div>
   <div [class.hidden]="isPregameHidden" class="pregame">
     <label>Insert how many decks would you like to play with: </label>
-    <div class="pregameInput">
+    <div>
       <input [(ngModel)]="deckQty" placeholder="deckQty" />
       <button (click)="startGame()" class="gameBtn btn btn-success">Play!</button>
     </div>
