@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutComponent } from '../shared/components/layout.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PlayGameComponent } from './components/play-game-page/play-game.component';
+import { PlayGameComponent } from './components/play-game/play-game.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
-    PlayGameComponent,
     LayoutComponent,
+    LoginComponent,
+    PlayGameComponent
   ],
   imports: [
     BrowserModule,

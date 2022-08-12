@@ -1,0 +1,31 @@
+.hidden {
+  visibility: hidden;
+}
+
+.mainBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center stretch;
+}
+
+.fundRelated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameBtn {
+  margin: 7px;
+}
+
+.pregame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.playArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
